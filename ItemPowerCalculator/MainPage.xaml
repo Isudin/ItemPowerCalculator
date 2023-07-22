@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ItemPowerCalculator.MainPage"
+             xmlns:viewmodels="clr-namespace:ItemPowerCalculator.ViewModels"
+             x:DataType="viewmodels:CalculatorroViewModel">
+
+    <ScrollView
+        BackgroundColor="#1E1E1E">
+
+        <FlexLayout Direction="Row"
+                    Wrap="Wrap"
+                    JustifyContent="Start">
+            <Grid HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+
+                <Border Grid.Column="0"
+                        Stroke="SlateGray"
+                        StrokeThickness="1"
+                        Margin="5">
+                    <VerticalStackLayout Grid.Column="0"
+                                         HorizontalOptions="Fill">
+                        <VerticalStackLayout HorizontalOptions="Center">
+                            <Picker Title="Typ przedmiotu"
+                                        FontSize="15"
+                                        ItemsSource="{Binding Types}"
+                                        SelectedItem="{Binding SelectedType}"/>
+
+                            <Picker Title="Podtyp"
+                                        FontSize="15"
+                                        ItemsSource="{Binding SubTypes}"
+                                        SelectedItem="{Binding SelectedSubType}"
+                                        MaximumHeightRequest="100"/>
+                        </VerticalStackLayout>
+                        <BoxView Color="SlateGray"
+                                 Margin="10,10,10,0"
+                                 HeightRequest="2"/>
+                    </VerticalStackLayout>
+                </Border>
+
+
+
+
+
+
+
+                <Border Grid.Column="1"
+                        StrokeThickness="1"
+                        Margin="5"
+                        Stroke="SlateGray">
+
+                    <VerticalStackLayout>
+                        <Entry Keyboard="Numeric"
+                               IsSpellCheckEnabled="False"
+                               Placeholder="Wprowadź wartość"
+                               ReturnCommand="{Binding EnteredValue}"
+                               ReturnCommandParameter="{Binding Source={RelativeSource Self}, Path=Text}">
+
+                        </Entry>
+                    </VerticalStackLayout>
+                </Border>
+
+
+            </Grid>
+
+        </FlexLayout>
+    </ScrollView>
+
+</ContentPage>
