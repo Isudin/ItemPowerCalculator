@@ -101,6 +101,7 @@ namespace ItemPowerCalculator.ViewModels
                     };
                     entry.SetBinding(Entry.TextProperty, binding);
                     PropertiesStack.Add(entry);
+                    //Test
                 }
             }
         }
