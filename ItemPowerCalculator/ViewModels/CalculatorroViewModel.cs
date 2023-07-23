@@ -1,6 +1,5 @@
 ﻿using ItemPowerCalculator.Model;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -52,6 +51,7 @@ namespace ItemPowerCalculator.ViewModels
             {
                 _selectedSubType = value;
                 PopulateProperties();
+                OnPropertyChanged();
             }
         }
 
@@ -74,6 +74,7 @@ namespace ItemPowerCalculator.ViewModels
             }
 
             PropertyInfo[] properties = Item.GetInputProperties(Item.GetType());
+            CreateEntries(properties, typeof(Item));
         }
 
         private void CreateEntries(PropertyInfo[] properties, Type itemType)
@@ -100,8 +101,7 @@ namespace ItemPowerCalculator.ViewModels
                         Source = new RelativeBindingSource(RelativeBindingSourceMode.Self)
                     };
                     entry.SetBinding(Entry.TextProperty, binding);
-                    PropertiesStack.Add(entry);
-                    //Test
+                    PropertiesStack.Children.Add(entry);
                 }
             }
         }
@@ -115,7 +115,7 @@ namespace ItemPowerCalculator.ViewModels
         });
 
 
-
+        //TODO Replace with BindableLayout in .xaml file
         public VerticalStackLayout PropertiesStack { get; set; } = new VerticalStackLayout();
 
         public event PropertyChangedEventHandler PropertyChanged;

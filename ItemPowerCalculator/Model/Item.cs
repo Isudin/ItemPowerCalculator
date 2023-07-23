@@ -6,8 +6,6 @@ namespace ItemPowerCalculator.Model
 {
     public abstract class Item
     {
-        public ItemType Type { get; set; }
-        public ItemSubType SubType { get; set; }
         [Input]
         public int Weight { get; set; }
 

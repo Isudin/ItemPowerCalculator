@@ -5,9 +5,18 @@
              xmlns:viewmodels="clr-namespace:ItemPowerCalculator.ViewModels"
              x:DataType="viewmodels:CalculatorroViewModel">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Entry" x:Key="inputEntry">
+                <Setter Property="ReturnCommand" Value="{Binding EnteredValue}"/>
+                <Setter Property="ReturnCommandParameter" Value="{Binding Source={RelativeSource Self}, Path=Text}"/>
+            </Style>
+            <!--TODO: Add new style for list of items-->
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ScrollView
         BackgroundColor="#1E1E1E">
-
         <FlexLayout Direction="Row"
                     Wrap="Wrap"
                     JustifyContent="Start">
@@ -16,7 +25,6 @@
                     <ColumnDefinition Width="250"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-
 
                 <Border Grid.Column="0"
                         Stroke="SlateGray"
@@ -36,9 +44,15 @@
                                         SelectedItem="{Binding SelectedSubType}"
                                         MaximumHeightRequest="100"/>
                         </VerticalStackLayout>
+                        
                         <BoxView Color="SlateGray"
                                  Margin="10,10,10,0"
                                  HeightRequest="2"/>
+
+                        
+                        
+                        
+                        <VerticalStackLayout x:Name="PropertiesStack"/>
                     </VerticalStackLayout>
                 </Border>
 
