@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ItemPowerCalculator.MainPage"
              xmlns:viewmodels="clr-namespace:ItemPowerCalculator.ViewModels"
-             x:DataType="viewmodels:CalculatorroViewModel">
+             x:DataType="viewmodels:CalculatorroViewModel"
+             xmlns:input="clr-namespace:ItemPowerCalculator.Model">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -44,15 +45,24 @@
                                         SelectedItem="{Binding SelectedSubType}"
                                         MaximumHeightRequest="100"/>
                         </VerticalStackLayout>
-                        
+
                         <BoxView Color="SlateGray"
                                  Margin="10,10,10,0"
                                  HeightRequest="2"/>
 
-                        
-                        
-                        
-                        <VerticalStackLayout x:Name="PropertiesStack"/>
+
+
+
+                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding Inputs}"
+                                             BindableLayout.EmptyView="Null">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Entry Text="{Binding Name}"
+                                           Placeholder="{Binding Value}"/>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+
+                        </VerticalStackLayout>
                     </VerticalStackLayout>
                 </Border>
 

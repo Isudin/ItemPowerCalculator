@@ -1,4 +1,5 @@
 ﻿using ItemPowerCalculator.Model;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -14,6 +15,7 @@ namespace ItemPowerCalculator.ViewModels
         }
 
         public Item Item { get; set; }
+        public ObservableCollection<Input> Inputs { get; set; } = new();
 
         public List<string> Types { get; set; }
 
@@ -55,8 +57,16 @@ namespace ItemPowerCalculator.ViewModels
             }
         }
 
+        // For some reason, whenever I try to bind Input.Name/Value in BindableLayout,
+        // it doesn't work unless these are uncommented. Their type doesn't matter,
+        // they just have to be in this VM so the exception won't be thrown.
+        // The referenced values are still okay.
+        public string Name => "t";
+        public string Value => "t";
+
         public void PopulateProperties()
         {
+            Inputs.Clear();
             switch (SelectedTypeEnum)
             {
                 case ItemType.Weapon:
@@ -73,8 +83,10 @@ namespace ItemPowerCalculator.ViewModels
                     return;
             }
 
-            PropertyInfo[] properties = Item.GetInputProperties(Item.GetType());
-            CreateEntries(properties, typeof(Item));
+            foreach (PropertyInfo input in Item.GetInputProperties(Item.GetType()))
+                Inputs.Add(new Input(input.Name, (int)input.GetValue(Item)));
+
+            //CreateEntries(Inputs, typeof(Item));
         }
 
         private void CreateEntries(PropertyInfo[] properties, Type itemType)
