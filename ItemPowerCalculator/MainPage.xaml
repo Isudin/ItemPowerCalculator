@@ -50,18 +50,30 @@
                                  Margin="10,10,10,0"
                                  HeightRequest="2"/>
 
-
-
-
-                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding Inputs}"
-                                             BindableLayout.EmptyView="Null">
+                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding Inputs}">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>
-                                    <Entry Text="{Binding Name}"
-                                           Placeholder="{Binding Value}"/>
+                                    <HorizontalStackLayout VerticalOptions="Center">
+                                        <Label Text="{Binding Name}"
+                                               VerticalOptions="Center"/>
+                                        <Entry Text="{Binding Value}"
+                                               Placeholder="{Binding Name}"/>
+                                    </HorizontalStackLayout>
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
 
+                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding AttributeInputs}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <HorizontalStackLayout VerticalOptions="Center">
+                                        <Label Text="{Binding Name}"
+                                               VerticalOptions="Center"/>
+                                        <Entry Text="{Binding Value}"
+                                               Placeholder="{Binding Name}"/>
+                                    </HorizontalStackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
                         </VerticalStackLayout>
                     </VerticalStackLayout>
                 </Border>

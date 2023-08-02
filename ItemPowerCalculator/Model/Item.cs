@@ -27,6 +27,46 @@ namespace ItemPowerCalculator.Model
         }
     }
 
+    public class Weapon : Item
+    {
+        [Input]
+        public int Damage { get; set; }
+        [Input]
+        public int Range { get; set; }
+        [Input]
+        public Attribs Attributes { get; set; } = new Attribs();
+    }
+
+    public class Armor : Item
+    {
+        [Input]
+        public int Resistance { get; set; }
+        [Input]
+        public int ItemSlots { get; set; }
+    }
+
+    public class Jewellery : Item
+    {
+        [Input]
+        public int ItemSlots { get; set; }
+        [Input]
+        public Attribs Attributes { get; set; } = new Attribs();
+    }
+
+    public class Attribs
+    {
+        [Input]
+        public int MartialArts { get; set; }
+        [Input]
+        public int MagicalTalent { get; set; }
+        [Input]
+        public int Dexterity { get; set; }
+        [Input]
+        public int Toughness { get; set; }
+        [Input]
+        public int Perception { get; set; }
+    }
+
     public enum ItemType
     {
         [Display(Name = "Brak")]

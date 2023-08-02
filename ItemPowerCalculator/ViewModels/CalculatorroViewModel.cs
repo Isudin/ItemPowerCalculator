@@ -16,6 +16,7 @@ namespace ItemPowerCalculator.ViewModels
 
         public Item Item { get; set; }
         public ObservableCollection<Input> Inputs { get; set; } = new();
+        public ObservableCollection<Input> AttributeInputs { get; set; } = new();
 
         public List<string> Types { get; set; }
 
@@ -67,6 +68,7 @@ namespace ItemPowerCalculator.ViewModels
         public void PopulateProperties()
         {
             Inputs.Clear();
+            AttributeInputs.Clear();
             switch (SelectedTypeEnum)
             {
                 case ItemType.Weapon:
@@ -84,7 +86,13 @@ namespace ItemPowerCalculator.ViewModels
             }
 
             foreach (PropertyInfo input in Item.GetInputProperties(Item.GetType()))
-                Inputs.Add(new Input(input.Name, (int)input.GetValue(Item)));
+            {
+                if (input.PropertyType == typeof(Attribs))
+                    foreach (PropertyInfo attributeInput in Item.GetInputProperties(typeof(Attribs)))
+                        AttributeInputs.Add(new Input(attributeInput.Name, (int)attributeInput.GetValue((Attribs)input.GetValue(Item))));
+                else
+                    Inputs.Add(new Input(input.Name, (int)input.GetValue(Item)));
+            }
 
             //CreateEntries(Inputs, typeof(Item));
         }
@@ -113,7 +121,6 @@ namespace ItemPowerCalculator.ViewModels
                         Source = new RelativeBindingSource(RelativeBindingSourceMode.Self)
                     };
                     entry.SetBinding(Entry.TextProperty, binding);
-                    PropertiesStack.Children.Add(entry);
                 }
             }
         }
@@ -126,9 +133,6 @@ namespace ItemPowerCalculator.ViewModels
             var t = int.TryParse(text, out int result);
         });
 
-
-        //TODO Replace with BindableLayout in .xaml file
-        public VerticalStackLayout PropertiesStack { get; set; } = new VerticalStackLayout();
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string name = "") =>
