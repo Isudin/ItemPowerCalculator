@@ -12,7 +12,6 @@
                 <Setter Property="ReturnCommand" Value="{Binding EnteredValue}"/>
                 <Setter Property="ReturnCommandParameter" Value="{Binding Source={RelativeSource Self}, Path=Text}"/>
             </Style>
-            <!--TODO: Add new style for list of items-->
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -77,33 +76,7 @@
                         </VerticalStackLayout>
                     </VerticalStackLayout>
                 </Border>
-
-
-
-
-
-
-
-                <Border Grid.Column="1"
-                        StrokeThickness="1"
-                        Margin="5"
-                        Stroke="SlateGray">
-
-                    <VerticalStackLayout>
-                        <Entry Keyboard="Numeric"
-                               IsSpellCheckEnabled="False"
-                               Placeholder="Wprowadź wartość"
-                               ReturnCommand="{Binding EnteredValue}"
-                               ReturnCommandParameter="{Binding Source={RelativeSource Self}, Path=Text}">
-
-                        </Entry>
-                    </VerticalStackLayout>
-                </Border>
-
-
             </Grid>
-
         </FlexLayout>
     </ScrollView>
-
 </ContentPage>

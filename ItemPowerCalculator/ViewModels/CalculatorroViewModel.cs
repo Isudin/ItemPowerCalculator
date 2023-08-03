@@ -93,8 +93,6 @@ namespace ItemPowerCalculator.ViewModels
                 else
                     Inputs.Add(new Input(input.Name, (int)input.GetValue(Item)));
             }
-
-            //CreateEntries(Inputs, typeof(Item));
         }
 
         private void CreateEntries(PropertyInfo[] properties, Type itemType)
