@@ -6,17 +6,7 @@ namespace ItemPowerCalculator.Model
 {
     public abstract class Item
     {
-        [Input]
-        public int Weight { get; set; }
-
-        public static PropertyInfo[] GetInputProperties<T>(T _) where T : Item
-        {
-            var type = typeof(T);
-            var properties = type.GetProperties();
-            var inputProps = properties.Where(prop => prop.IsDefined(typeof(InputAttribute), true));
-
-            return typeof(T).GetProperties().Where(prop => prop.IsDefined(typeof(InputAttribute), true)).ToArray();
-        }
+        [Input] public int Weight { get; set; }
 
         public static PropertyInfo[] GetInputProperties(Type type)
         {
@@ -25,46 +15,37 @@ namespace ItemPowerCalculator.Model
 
             return inputProps.ToArray();
         }
+
+        public static PropertyInfo GetMultipierPropertyByName(Type type, string propertyName) 
+            => type.GetProperties().FirstOrDefault(prop => prop.Name == $"{propertyName}Multipier");
     }
 
     public class Weapon : Item
     {
-        [Input]
-        public int Damage { get; set; }
-        [Input]
-        public int Range { get; set; }
-        [Input]
-        public Attribs Attributes { get; set; } = new Attribs();
+        [Input] public int Damage { get; set; }
+        [Input] public int Range { get; set; }
+        [Input] public Attribs Attributes { get; set; } = new Attribs();
     }
 
     public class Armor : Item
     {
-        [Input]
-        public int Resistance { get; set; }
-        [Input]
-        public int ItemSlots { get; set; }
+        [Input] public int Resistance { get; set; }
+        [Input] public int ItemSlots { get; set; }
     }
 
     public class Jewellery : Item
     {
-        [Input]
-        public int ItemSlots { get; set; }
-        [Input]
-        public Attribs Attributes { get; set; } = new Attribs();
+        [Input] public int ItemSlots { get; set; }
+        [Input] public Attribs Attributes { get; set; } = new Attribs();
     }
 
     public class Attribs
     {
-        [Input]
-        public int MartialArts { get; set; }
-        [Input]
-        public int MagicalTalent { get; set; }
-        [Input]
-        public int Dexterity { get; set; }
-        [Input]
-        public int Toughness { get; set; }
-        [Input]
-        public int Perception { get; set; }
+        [Input] public int MartialArts { get; set; }
+        [Input] public int MagicalTalent { get; set; }
+        [Input] public int Dexterity { get; set; }
+        [Input] public int Toughness { get; set; }
+        [Input] public int Perception { get; set; }
     }
 
     public enum ItemType

@@ -59,8 +59,8 @@ namespace ItemPowerCalculator.ViewModels
         }
 
         // For some reason, whenever I try to bind Input.Name/Value in BindableLayout,
-        // it doesn't work unless these are uncommented. Their type doesn't matter,
-        // they just have to be in this VM so the exception won't be thrown.
+        // it doesn't work unless these are uncommented. Neither their type nor value matters,
+        // they just have to exist so the exception won't be thrown.
         // The referenced values are still okay.
         public string Name => "t";
         public string Value => "t";
@@ -123,14 +123,43 @@ namespace ItemPowerCalculator.ViewModels
             }
         }
 
+        //public ICommand EnteredValue { get; private set; }
+        //    // TODO: Remove after testing
+        //    = new Command<string>((string value) =>
+        //    {
+        //        string text = value;
+        //        var t = int.TryParse(text, out int result);
+        //    });
         public ICommand EnteredValue { get; private set; }
-            //TODO Remove after testing
-            = new Command<string>((string value) =>
-        {
-            string text = value;
-            var t = int.TryParse(text, out int result);
-        });
+            // TODO: Remove after testing
+            = new Command(() =>
+            {
+                string text = "A";
+                var t = int.TryParse(text, out int result);
+            });
 
+        // TODO: Add configurable multipliers saved in resources with default values
+        public decimal CalculatedPower
+        {
+            get
+            {
+                decimal power = 0;
+                foreach (Input input in Inputs)
+                    power += GetMultiplier(input) * input.Value;
+
+                foreach (Input attributeInput in AttributeInputs)
+                    power += GetMultiplier(attributeInput) * attributeInput.Value;
+
+                return power;
+            }
+        }
+
+        private decimal GetMultiplier(Input input)
+        {
+            PropertyInfo multiplierProperty = Item.GetMultipierPropertyByName(Item.GetType(), input.Name);
+            decimal multiplier = (decimal)multiplierProperty.GetValue(Item);
+            return multiplier;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string name = "") =>

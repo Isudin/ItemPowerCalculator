@@ -56,7 +56,9 @@
                                         <Label Text="{Binding Name}"
                                                VerticalOptions="Center"/>
                                         <Entry Text="{Binding Value}"
-                                               Placeholder="{Binding Name}"/>
+                                               Placeholder="Value"
+                                               ReturnCommand="{Binding EnteredValue}"
+                                               ReturnCommandParameter="{Binding Source={RelativeSource Self}, Path=Text}"/>
                                     </HorizontalStackLayout>
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>
@@ -69,7 +71,9 @@
                                         <Label Text="{Binding Name}"
                                                VerticalOptions="Center"/>
                                         <Entry Text="{Binding Value}"
-                                               Placeholder="{Binding Name}"/>
+                                               Placeholder="Value"
+                                               ReturnCommand="{Binding EnteredValue}"
+                                               ReturnCommandParameter="{Binding Source={RelativeSource Self}, Path=Text}"/>
                                     </HorizontalStackLayout>
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>
